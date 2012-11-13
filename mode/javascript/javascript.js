@@ -1,3 +1,17 @@
+(function (root, factory) {
+    if (typeof exports === 'object') {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like enviroments that support module.exports,
+        // like Node.
+        module.exports = factory(require('codemirror'));
+    } else if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['codemirror'], factory);
+    } else {
+        // Browser globals
+        root.returnExports = factory(root.CodeMirror);
+    }
+}(this, function (CodeMirror) {
 // TODO actually recognize syntax of TypeScript constructs
 
 CodeMirror.defineMode("javascript", function(config, parserConfig) {
@@ -409,3 +423,5 @@ CodeMirror.defineMIME("text/javascript", "javascript");
 CodeMirror.defineMIME("application/json", {name: "javascript", json: true});
 CodeMirror.defineMIME("text/typescript", { name: "javascript", typescript: true });
 CodeMirror.defineMIME("application/typescript", { name: "javascript", typescript: true });
+
+}));
